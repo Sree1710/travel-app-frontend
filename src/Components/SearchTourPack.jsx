@@ -12,6 +12,7 @@ const SearchTourPack = () => {
 
     const apiLink="http://localhost:3001/searcht"
     const apiLink2="http://localhost:3001/updatet"
+    
 
     const inputHandler=(event)=>{
         setInputField({...inputField,[event.target.name]:event.target.value})
@@ -35,6 +36,8 @@ const SearchTourPack = () => {
             }
         )
     }
+
+    
 
     const readValue=()=>{
         console.log(inputField)
