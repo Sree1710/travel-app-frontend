@@ -12,7 +12,7 @@ const SearchTourPack = () => {
 
     const apiLink="http://localhost:3001/searcht"
     const apiLink2="http://localhost:3001/updatet"
-    
+    const apiLink3="http://localhost:3001/deletet"
 
     const inputHandler=(event)=>{
         setInputField({...inputField,[event.target.name]:event.target.value})
@@ -37,7 +37,19 @@ const SearchTourPack = () => {
         )
     }
 
-    
+    const deleteValue=()=>{
+     console.log(updateField)
+     axios.post(apiLink3,updateField).then(
+        (Response)=>{
+            if (Response.data.status=="success") {
+                alert("Package Deleted Successfully")
+                setUpdateField({packTitle:"",packDescription:"",packImg:"",packDuration:"",packRate:""})
+            } else {
+                alert("Something Went Wrong!!!")
+            }
+        }
+     )
+    }
 
     const readValue=()=>{
         console.log(inputField)
@@ -99,7 +111,7 @@ const SearchTourPack = () => {
 
                             </div>
                             <div className="col col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                <button className="btn btn-danger">Delete</button>
+                                <button onClick={deleteValue} className="btn btn-danger">Delete</button>
                             </div>
 
                         </div>
