@@ -6,12 +6,15 @@ const ViewTourPack = () => {
         []
     )
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const apiLink = "http://localhost:3001/viewt"
 
     const getData = () => {
         axios.get(apiLink).then(
             (Response) => {
                 setPackData(Response.data)
+                setIsLoading(false)
             }
         )
     }
@@ -26,9 +29,11 @@ const ViewTourPack = () => {
                         <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                             <h1>View Tour Package</h1>
                         </div>
-                        
-                        <div className="row g-3">
-                        <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"></div>
+
+                        {isLoading ? <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div> : <div className="row g-3">
+                            <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12"></div>
 
                             {packData.map(
                                 (value, index) => {
@@ -53,7 +58,7 @@ const ViewTourPack = () => {
                                     </div>
                                 }
                             )}
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
