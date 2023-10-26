@@ -15,6 +15,7 @@ const SearchTourPack = () => {
     const inputHandler=(event)=>{
         setInputField({...inputField,[event.target.name]:event.target.value})
     }
+    
 
     const readValue=()=>{
         console.log(inputField)
