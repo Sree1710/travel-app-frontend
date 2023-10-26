@@ -6,22 +6,41 @@ const SearchTourPack = () => {
         {packID:""}
     )
 
-    const [outputField,setOutputField]=useState(
-        [{packID:"",packTitle:"",packDescription:"",packImg:"",packDuration:"",packRate:""}]
+    const [updateField,setUpdateField]=useState(
+        {packTitle:"",packDescription:"",packImg:"",packDuration:"",packRate:""}
     )
 
     const apiLink="http://localhost:3001/searcht"
+    const apiLink2="http://localhost:3001/updatet"
 
     const inputHandler=(event)=>{
         setInputField({...inputField,[event.target.name]:event.target.value})
     }
     
+    const updateHandler=(event)=>{
+        setUpdateField({...updateField,[event.target.name]:event.target.value})
+    }
+
+    const readNewValue=()=>{
+        console.log(updateField)
+        axios.post(apiLink2,updateField).then(
+            (Response)=>{
+                if (Response.data.status=="success") {
+                    alert("Package Updated Successfully")
+                    setUpdateField({packTitle:"",packDescription:"",packImg:"",packDuration:"",packRate:""})
+                } else {
+                    alert("Something Went Wrong!!!")
+                }
+
+            }
+        )
+    }
 
     const readValue=()=>{
         console.log(inputField)
         axios.post(apiLink,inputField).then(
         (Response)=>{
-            setOutputField(Response.data[0])
+            setUpdateField(Response.data[0])
             console.log(Response.data[0])
             setInputField({packID:""})
         }
@@ -51,29 +70,29 @@ const SearchTourPack = () => {
                         <div className="row g-3">
                             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <label htmlFor="" className="form-label">Title</label>
-                                <input type="text" className="form-control" name="packTitle" value={outputField.packTitle}  />
+                                <input onChange={updateHandler} type="text" className="form-control" name="packTitle" value={updateField.packTitle}  />
                             </div>
                             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <label htmlFor="" className="form-label">Description</label>
-                                <input type="text" className="form-control" name="packDescription" value={outputField.packDescription} />
+                                <input onChange={updateHandler} type="text" className="form-control" name="packDescription" value={updateField.packDescription} />
                             </div>
                             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <label htmlFor="" className="form-label">Image Link</label>
-                                <input type="text" className="form-control" name="packImg" value={outputField.packImg} />
+                                <input onChange={updateHandler} type="text" className="form-control" name="packImg" value={updateField.packImg} />
                             </div>
                             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <label htmlFor="" className="form-label">Duration</label>
-                                <input type="text" className="form-control" name="packDuration" value={outputField.packDuration}  />
+                                <input onChange={updateHandler} type="text" className="form-control" name="packDuration" value={updateField.packDuration}  />
                             </div>
                             <div className="col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-12">
                                 <label htmlFor="" className="form-label">Rate</label>
-                                <input type="text" className="form-control" name="packRate" value={outputField.packRate} />
+                                <input onChange={updateHandler} type="text" className="form-control" name="packRate" value={updateField.packRate} />
                             </div>
                             <div className="col col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
 
                             </div>
                             <div className="col col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
-                                <button className="btn btn-warning">Update</button>
+                                <button onClick={readNewValue} className="btn btn-warning">Update</button>
 
                             </div>
                             <div className="col col-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 col-xxl-4">
